@@ -30,24 +30,25 @@ int encounter1(int atr)
     cout<<'\n'<<"2.Fast swing";
      cin>>atr;
      if(atr==1){
-        if(random()+str+dex/2>60){ehp=ehp-dmgmelee[inventory[1]]*(random()/5);
+        if(random()+str+dex/2>60){ehp=ehp-dmgmelee[inventory[1]]*(random()/6);
         cout<<'\n'<<"You hit the enemy directly";
         }
         else cout<<'\n'<<"You miss";
      }
      else if(atr==2)
      {
-         if(random()+str/2+dex>60){ehp=ehp-dmgmelee[inventory[1]]*(random()/5);
+         if(random()+str/2+dex>60){ehp=ehp-dmgmelee[inventory[1]]*(random()/6);
         cout<<'\n'<<"You hit the enemy directly";
         }
         else cout<<'\n'<<"You miss";
      }
+     _getch();
      if(ehp<=0){cout<<'\n'<<"You masterfully pierce the enemy, he soon falls down lifeless on the bloody ground";
       gate++;
       return 0;}
     }
     cout<<'\n'<<"The fighter rushes at you.";
-    if(random()+str/2+dex<60){
+    if(random()+str/2+dex/2+5<60){
         cout<<'\n'<<"Your guard is broken and the enemy's blade cuts deep into you.";
         hp=hp-random()/2.3;
     }
@@ -55,7 +56,8 @@ int encounter1(int atr)
     if(hp<=0){cout<<'\n'<<"As the enemy drives his weapon into your flesh, all turns to black and you fall down, lifeless.";
     return 0;
     }
-    }
+    _getch();
+}
 }
 int walls(int atr)
 {
@@ -168,6 +170,10 @@ start2(int atr,int godg)
 }
 int main()
 {
+    dmgmelee[1]=4;
+    dmgmelee[2]=3;
+    dmgmelee[3]=3;
+    dmgmelee[4]=5;
     cout<<"Welcome to Siege of Pemiten version 0.1, begin by making your character"<<endl;
     cout<<"-----------PRESS ANY KEY TO CONTINUE-----------"<<endl;
     _getch();
