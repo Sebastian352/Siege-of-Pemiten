@@ -11,7 +11,7 @@ int stats(int &str,int &ine,int &cha,int &dex)
     cout<<"3.Intelligence  "<<ine<<"/"<<"80"<<'\n';
     cout<<"4.Charisma      "<<cha<<"/"<<"80"<<'\n';
 }
-//Soldier start---------------------------------------------------------------------------------------------------
+//muie
 int start1(int atr,int &str,int &dex,int godg)
 {
    cout<<"You are sleeping in the barracks but are suddenly awoken by one of your fellow guardsmen.";
