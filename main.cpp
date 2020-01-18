@@ -4,7 +4,7 @@
 #include <string.h>
 #include <ctime>
 using namespace std;
-int inventory[20], hp=100,dmgmelee[20]={4,3,3,5},str=0,dex=0,ine=0,cha=0,gate=15;
+int inventory[20],hp=100,dmgmelee[20]={4,3,3,5},str=0,dex=0,ine=0,cha=0,gate=15;
 int stats(int &str,int &ine,int &cha,int &dex)
 {
     cout<<"1.Strength      "<<str<<"/"<<"80"<<'\n';
@@ -17,41 +17,36 @@ int random()
 srand(time(NULL));
 return (rand()%100)+1;
 }
-int random2()
-{
-srand(time(NULL));
-return (rand()%100)+1;
-}
-int encounter1(int atr,int )
+int encounter1(int atr)
 {
     int ehp=80;
     gate--;
     cout<<'\n'<<"You are attacked by an enemy fighter, what do you do ?";
     while(hp>0 && ehp>0)
-    cout<<'\n'<<"Your health: "<<hp<"          Enemy health: "<<ehp;
+    cout<<'\n'<<"Your health: "<<hp<<"          Enemy health: "<<ehp;
     cout<<'\n'<<"1.Attack";
     cin>>atr;
-    if(atr==1){cout<<"1.Hard swing";
-    cout<<"2.Fast swing";
+    if(atr==1){cout<<'\n'<<"1.Hard swing";
+    cout<<'\n'<<"2.Fast swing";
      cin>>atr;
      if(atr==1){
         if(random()+str+dex/2>60){ehp=ehp-dmgmelee[inventory[1]]*(random()/5);
-        cout>>"You hit the enemy directly";
+        cout<<'\n'<<"You hit the enemy directly";
         }
-        else cout<<"You miss";
+        else cout<<'\n'<<"You miss";
      }
      else if(atr==2)
      {
          if(random()+str/2+dex>60){ehp=ehp-dmgmelee[inventory[1]]*(random()/5);
-        cout>>"You hit the enemy directly";
+        cout<<'\n'<<"You hit the enemy directly";
         }
-        else cout<<"You miss";
+        else cout<<'\n'<<"You miss";
      }
      if(ehp<=0){cout<<'\n'<<"You masterfully pierce the enemy, he soon falls down lifeless on the bloody ground";
       gate++;
       return 0;}
     }
-    cout<<'\n'<<"The fighter rushes at you."
+    cout<<'\n'<<"The fighter rushes at you.";
     if(random()+str/2+dex<60){
         cout<<'\n'<<"Your guard is broken and the enemy's blade cuts deep into you.";
         hp=hp-random()/2.3;
@@ -64,7 +59,7 @@ int encounter1(int atr,int )
 int walls(int atr)
 {
     cout<<'\n'<<"The walls are engulfed in chaos and there are already enemy ladders from on which warrior are climbing up the walls";
-    if(random()=>0)encounter1(atr);
+    if(random()>=0)encounter1(atr);
 }
 int courtyard(int atr)
 {
@@ -72,7 +67,7 @@ int courtyard(int atr)
     cout<<'\n'<<"1.To the walls, they must be defended!";
     cin>>atr;
     if(atr==1){
-        walls();
+        walls(atr);
     }
 }
 //Soldier start---------------------------------------------------------------------------------------------------
@@ -274,9 +269,8 @@ int main()
          else if(godg==2)cout<<"Yes, Fire-warrior specialization";
     cout<<'\n'<<"Press any key to begin the game"<<'\n';
      _getch();
-    if(prof=="Soldier")start1(atr,str,dex,godg);
-    else if(prof=="Mercenary")start2(atr,str,dex,godg);
-    courtyard(atr,)
-
+    if(prof=="Soldier")start1(atr,godg);
+    else if(prof=="Mercenary")start2(atr,godg);
+    courtyard(atr);
     return 0;
 }
