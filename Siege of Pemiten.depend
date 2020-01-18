@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1579109042 source:c:\users\sorin\desktop\siege of pemiten\main.cpp
+	<iostream>
+	<conio.h>
+	<stdlib.h>
+
+1579202402 source:c:\users\sebastian\desktop\siege of pemiten\main.cpp
+	<iostream>
+	<conio.h>
+	<stdlib.h>
+	<string.h>
+
