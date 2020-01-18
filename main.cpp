@@ -23,7 +23,7 @@ int encounter1(int atr)
     gate--;
     cout<<'\n'<<"You are attacked by an enemy fighter, what do you do ?";
     while(hp>0 && ehp>0)
-    cout<<'\n'<<"Your health: "<<hp<<"          Enemy health: "<<ehp;
+    {cout<<'\n'<<"Your health: "<<hp<<"          Enemy health: "<<ehp;
     cout<<'\n'<<"1.Attack";
     cin>>atr;
     if(atr==1){cout<<'\n'<<"1.Hard swing";
@@ -54,6 +54,7 @@ int encounter1(int atr)
     else cout<<'\n'<<"The enemy cannot break your guard and is pushed back";
     if(hp<=0){cout<<'\n'<<"As the enemy drives his weapon into your flesh, all turns to black and you fall down, lifeless.";
     return 0;
+    }
     }
 }
 int walls(int atr)
