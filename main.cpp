@@ -2,8 +2,9 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctime>
 using namespace std;
-int inventory[20];
+int inventory[20], hp=100,dmgmelee[20]={4,3,3,5},str=0,dex=0,ine=0,cha=0,gate=15;
 int stats(int &str,int &ine,int &cha,int &dex)
 {
     cout<<"1.Strength      "<<str<<"/"<<"80"<<'\n';
@@ -11,8 +12,71 @@ int stats(int &str,int &ine,int &cha,int &dex)
     cout<<"3.Intelligence  "<<ine<<"/"<<"80"<<'\n';
     cout<<"4.Charisma      "<<cha<<"/"<<"80"<<'\n';
 }
-//muie
-int start1(int atr,int &str,int &dex,int godg)
+int random()
+{
+srand(time(NULL));
+return (rand()%100)+1;
+}
+int random2()
+{
+srand(time(NULL));
+return (rand()%100)+1;
+}
+int encounter1(int atr,int )
+{
+    int ehp=80;
+    gate--;
+    cout<<'\n'<<"You are attacked by an enemy fighter, what do you do ?";
+    while(hp>0 && ehp>0)
+    cout<<'\n'<<"Your health: "<<hp<"          Enemy health: "<<ehp;
+    cout<<'\n'<<"1.Attack";
+    cin>>atr;
+    if(atr==1){cout<<"1.Hard swing";
+    cout<<"2.Fast swing";
+     cin>>atr;
+     if(atr==1){
+        if(random()+str+dex/2>60){ehp=ehp-dmgmelee[inventory[1]]*(random()/5);
+        cout>>"You hit the enemy directly";
+        }
+        else cout<<"You miss";
+     }
+     else if(atr==2)
+     {
+         if(random()+str/2+dex>60){ehp=ehp-dmgmelee[inventory[1]]*(random()/5);
+        cout>>"You hit the enemy directly";
+        }
+        else cout<<"You miss";
+     }
+     if(ehp<=0){cout<<'\n'<<"You masterfully pierce the enemy, he soon falls down lifeless on the bloody ground";
+      gate++;
+      return 0;}
+    }
+    cout<<'\n'<<"The fighter rushes at you."
+    if(random()+str/2+dex<60){
+        cout<<'\n'<<"Your guard is broken and the enemy's blade cuts deep into you.";
+        hp=hp-random()/2.3;
+    }
+    else cout<<'\n'<<"The enemy cannot break your guard and is pushed back";
+    if(hp<=0){cout<<'\n'<<"As the enemy drives his weapon into your flesh, all turns to black and you fall down, lifeless.";
+    return 0;
+    }
+}
+int walls(int atr)
+{
+    cout<<'\n'<<"The walls are engulfed in chaos and there are already enemy ladders from on which warrior are climbing up the walls";
+    if(random()=>0)encounter1(atr);
+}
+int courtyard(int atr)
+{
+    cout<<'\n'<<"The courtyard is a mess of soldiers running around to their positions, meanwhile on the other side of the walls fierce battle shouts can be heard.What do you do?";
+    cout<<'\n'<<"1.To the walls, they must be defended!";
+    cin>>atr;
+    if(atr==1){
+        walls();
+    }
+}
+//Soldier start---------------------------------------------------------------------------------------------------
+int start1(int atr,int godg)
 {
    cout<<"You are sleeping in the barracks but are suddenly awoken by one of your fellow guardsmen.";
    cout<<'\n'<<"-You there! Wake up, the fort is under attack! Arm yourself and head to the courtyard."<<'\n';
@@ -54,7 +118,7 @@ int start1(int atr,int &str,int &dex,int godg)
     cout<<'\n'<<"-Finally, you're done! Get a move on!yells the guardsman";
 }
 //Mercenary start------------------------------------------------------------------------------------------------------
-start2(int atr,int &str,int &dex,int godg)
+start2(int atr,int godg)
 {
     cout<<'\n'<<"You are enjoying the night in the fort's inn when suddenly are disturbed by one of the guardsmen";
     cout<<'\n'<<"-The fort is under attack! It's time for you to earn your pay merc! To arms!";
@@ -111,7 +175,6 @@ int main()
     cout<<"Welcome to Siege of Pemiten version 0.1, begin by making your character"<<endl;
     cout<<"-----------PRESS ANY KEY TO CONTINUE-----------"<<endl;
     _getch();
-    int str=0,ine=0,cha=0,dex=0;
     int upp=20,upe;
     cout<<'\n';
     cout<<"1.Strength      "<<str<<"/"<<"80"<<'\n';
@@ -213,5 +276,7 @@ int main()
      _getch();
     if(prof=="Soldier")start1(atr,str,dex,godg);
     else if(prof=="Mercenary")start2(atr,str,dex,godg);
+    courtyard(atr,)
+
     return 0;
 }
