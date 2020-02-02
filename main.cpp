@@ -4,7 +4,7 @@
 #include <string.h>
 #include <ctime>
 using namespace std;
-int inventory[20],hp=100,dmgmelee[20]={4,3,3,5},str=0,dex=0,ine=0,cha=0,gate=15;
+int inventory[20],hp=100,dmgmelee[20]={4,3,3,6},str=0,dex=0,ine=0,cha=0,gate=15,godg=0;
 int stats(int &str,int &ine,int &cha,int &dex)
 {
     cout<<"1.Strength      "<<str<<"/"<<"80"<<'\n';
@@ -19,46 +19,78 @@ return (rand()%100)+1;
 }
 int encounter1(int atr)
 {
-    int ehp=80;
+    int ehp=80,magika=1+ine/4,sharp=0;
     gate--;
     cout<<'\n'<<"You are attacked by an enemy fighter, what do you do ?";
     while(hp>0 && ehp>0)
     {cout<<'\n'<<"Your health: "<<hp<<"          Enemy health: "<<ehp;
-    cout<<'\n'<<"1.Attack";
+     if(godg>0)cout<<'\n'<<"Godpower left: "<<magika;
+    cout<<'\n'<<"1.Attack"<<'\n';
+    if(godg==1 && magika>0)cout<<"2.Enchant your weapon (1 power)"<<'\n';
     cin>>atr;
     if(atr==1){cout<<'\n'<<"1.Hard swing";
-    cout<<'\n'<<"2.Fast swing";
+    cout<<'\n'<<"2.Fast swing"<<'\n';
+    if(inventory[3]==1 && magika>1)cout<<"3.Throw lightning from your gauntlet (2 power)";
      cin>>atr;
      if(atr==1){
-        if(random()+str+dex/2>60){ehp=ehp-dmgmelee[inventory[1]]*(random()/6);
-        cout<<'\n'<<"You hit the enemy directly";
+        if(random()+str+dex/2>45){ehp=ehp-(dmgmelee[inventory[1]]*(random()/6)+sharp);
+        cout<<'\n'<<"You hit the enemy directly for "<<dmgmelee[inventory[1]]*(random()/6)+sharp<<" damage";
         }
         else cout<<'\n'<<"You miss";
      }
      else if(atr==2)
      {
-         if(random()+str/2+dex>60){ehp=ehp-dmgmelee[inventory[1]]*(random()/6);
-        cout<<'\n'<<"You hit the enemy directly";
+         if(random()+str/2+dex>45){ehp=ehp-(dmgmelee[inventory[1]]*(random()/6)+sharp);
+        cout<<'\n'<<"You hit the enemy directly for "<<dmgmelee[inventory[1]]*(random()/6)+sharp<<" damage";
         }
         else cout<<'\n'<<"You miss";
      }
+     else if(atr==3)
+     {
+         if(random()+ine*2>23){
+            ehp=ehp-ine*random();
+            cout<<'\n'<<"Lightning flies out of your finger tips and into the enemy, wounding him for "<<ine*random()/10;
+         }
+         else cout<<'\n'<<"A short burst of thunder is thrown but the enemy manages to dodge it";
+         magika=magika-2;
+     }}
+    else if(atr==2 && magika>0)
+    {
+        if(random()>80){
+        cout<<'\n'<<"'THUNDER! Obey my command!' you yell as a tempest materializes on your blade, the enemy starts to shake..."<<'\n'<<"The enchantment was extremely successful, +30 damage";
+        if(inventory[1]==1)sharp=30/2;
+        else sharp=30;}
+        else if(50<random() && random()<80){
+        cout<<'\n'<<"A storm begins to form around your edge and electricity crackles around the steel"<<'\n'<<"The enchantment worked, +20 damage";
+        if(inventory[1]==1)sharp=20/2;
+        else sharp=20;
+    }
+        else if(20<random() && random()<50){
+        cout<<'\n'<<"Sparks take shape, soon your blade is emitting a bright light"<<'\n'<<"The enchantment had meager gain, +10 damage";
+        if(inventory[1]==1)sharp=10/2;
+        else sharp=10;
+    }
+        else if(random()<20){
+        cout<<'\n'<<"You wait with your sword aloft for a bit, but nothing happens ... the gods are not"<<'\n'<<"The enchantment failed";
+    }
+    magika=magika-1;
+    }
      _getch();
      if(ehp<=0){cout<<'\n'<<"You masterfully pierce the enemy, he soon falls down lifeless on the bloody ground";
       gate++;
       return 0;}
-    }
+
     cout<<'\n'<<"The fighter rushes at you.";
-    if(random()+str/2+dex/2+5<60){
-        cout<<'\n'<<"Your guard is broken and the enemy's blade cuts deep into you.";
-        hp=hp-random()/2.3;
+     if(random()+str/2+dex/2+5<45){
+        cout<<'\n'<<"Your guard is broken and the enemy's blade cuts deep into you, taking "<<random()/2.5<<" damage";
+        hp=hp-random()/2.5;
     }
     else cout<<'\n'<<"The enemy cannot break your guard and is pushed back";
     if(hp<=0){cout<<'\n'<<"As the enemy drives his weapon into your flesh, all turns to black and you fall down, lifeless.";
     return 0;
     }
     _getch();
-}
-}
+    }}
 int walls(int atr)
 {
     cout<<'\n'<<"The walls are engulfed in chaos and there are already enemy ladders from on which warrior are climbing up the walls";
@@ -113,7 +145,10 @@ int start1(int atr,int godg)
         cout<<"The metal chains hang all around your body and already are filled with power, any direct strike on them would send the attacker reeling"<<'\n';
     }
     }
-    cout<<'\n'<<"-Finally, you're done! Get a move on!yells the guardsman";
+    cout<<'\n'<<"-Finally, you're done! Get a move on!yells the guardsman"<<'\n'<<"Press any key to continue";
+    _getch();
+    system("CLS");
+
 }
 //Mercenary start------------------------------------------------------------------------------------------------------
 start2(int atr,int godg)
@@ -164,7 +199,9 @@ start2(int atr,int godg)
             dex=dex-3;
         }
     }
-    cout<<'\n'<<"Ready for battle, you head towards the courtyard";
+    cout<<'\n'<<"Ready for battle, you head towards the courtyard"<<'\n'<<"Press any key to continue";
+    _getch();
+    system("CLS");
 
 
 }
@@ -207,9 +244,8 @@ int main()
     if(atr==1)
     {
             str=str+10;
-            ine=ine-4;
             dex=dex+8;
-            cha=cha-4;
+            cha=cha-8;
             prof="Soldier";
             cout<<"You are a new conscript in the army, pulled from the nearby villages by the       chancellor's men a couple of months ago ago when you came of age."
             <<"You might not be the best spoken or the most intelligent man out there, but your agility is  good and your sword arm even better";
@@ -244,8 +280,8 @@ int main()
                   cout<<"You are a grizzled mercenary that pulled together through years of warfare under command of many different commanders"
                   <<", being an outsider however makes you untrustworthy in the eyes of the garrison";
               }
+
     cout<<'\n';
-        int godg=0;
     cout<<"Is your character god-gifted?"<<'\n'<<"1.Yes"<<'\n'<<"2.No"<<'\n'<<"3.What is being god-gifted?"<<'\n';
     cin>>atr;
     if(atr==1){godg=1;
@@ -268,14 +304,17 @@ int main()
     }
     cout<<'\n'<<"Finished character creation, press any key to continue";
      _getch();
+     system ("CLS");
     cout<<'\n'<<"This is your character"<<'\n';
     stats(str,ine,cha,dex);
     cout<<'\n'<<"Profession: "<<prof<<'\n'<<"Is god-gifted: ";
     if(godg==0)cout<<"No";
     else if(godg==1)cout<<"Yes, Messidian specialization";
          else if(godg==2)cout<<"Yes, Fire-warrior specialization";
+         system ("CLS");
     cout<<'\n'<<"Press any key to begin the game"<<'\n';
      _getch();
+         system ("CLS");
     if(prof=="Soldier")start1(atr,godg);
     else if(prof=="Mercenary")start2(atr,godg);
     courtyard(atr);
